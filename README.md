@@ -31,87 +31,68 @@ $ cd FinAPI-Financeira
 
 ## Instruções
 
-    URL para acessar as routes: http://localhost:3333
+    Requisições feitas via [insomnia](https://insomnia.rest/)
 
-    route para criar uma conta: POST - http://localhost:3333/account
-        Ex.: Os dados devem ser passando via JSON no body
+    URL para acessar as rotas: http://localhost:3333
+
+    Rota para criar uma conta: POST - http://localhost:3333/account
+        Os dados devem ser passando via JSON no body.
+        Ex.:
         body
         {
-            "name": "João",
-            "cpf": "333.333.333.33"
+            "name": "Fulano de tal",
+            "cpf": "111.111.111.11"
         }
 
 ---
 
-    route para consultar o statement do cliente: GET - http://localhost:3333/statement
-        deve passar o cpf pelo header
-        Ex.:
+## Importante
+
+    A partir desse ponto, todas as rotas devem conter o middleware de CPF na requisição.
+
+    Ex.:
         header{
-            cpf: "333.333.333.33"
+            cpf: "111.111.111.11"
         }
 
 ---
 
-    route para realizar um deposito na conta: POST - http://localhost:3333/deposit
-        deve passar o cpf pelo header
-        Ex.:
-        header
-        {
-            cpf: "333.333.333.33"
-        }
+    Rota para consultar o statement do cliente: GET - http://localhost:3333/statement
 
-        Ex.: Os dados devem ser passando via JSON no body
+---
+
+    Rota para realizar um depósito na conta: POST - http://localhost:3333/deposit
+
+        Os dados devem ser passando via JSON no body.
+        Ex.:
         body
         {
-            "description": "deposito joao",
-            "amount": 1203.00
+            "description": "depósito joão",
+            "amount": 3000.00
         }
 
 ---
 
-    route para realizar um saque na conta: POST - http://localhost:3333/withdraw
-        deve passar o cpf pelo header
-        Ex.:
-        header
-        {
-            cpf: "333.333.333.33"
-        }
+    Rota para realizar um saque na conta: POST - http://localhost:3333/withdraw
 
-        Ex.: Os dados devem ser passando via JSON no body
+        Os dados devem ser passando via JSON no body.
+        Ex.:
         body
         {
-            "amount": 120.00
+            "amount": 300.00
         }
 
 ---
 
-    route para visualizar o extrato bancário do cliente por data: GET - http://localhost:3333/statement/date
-        deve passar o cpf pelo header
-        Ex.:
-        header
-        {
-            cpf: "333.333.333.33"
-        }
+    Rota para visualizar o extrato bancário do cliente por data: GET - http://localhost:3333/statement/date
 
 ---
 
-    route para visualizar um cliente: GET - http://localhost:3333/account
-        deve passar o cpf pelo header
-        Ex.:
-        header
-        {
-            cpf: "333.333.333.33"
-        }
+    Rota para visualizar um cliente: GET - http://localhost:3333/account
 
 ---
 
-    route para atualizar o nome do cliente: PUT - http://localhost:3333/account
-        deve passar o cpf pelo header
-        Ex.:
-        header
-        {
-            cpf: "333.333.333.33"
-        }
+    Rota para atualizar o nome do cliente: PUT - http://localhost:3333/account
 
         Ex.: Os dados devem ser passando via JSON no body
         body
@@ -121,23 +102,11 @@ $ cd FinAPI-Financeira
 
 ---
 
-    route para remove um cliente: DELETE - http://localhost:3333/account
-        deve passar o cpf pelo header
-        Ex.:
-        header
-        {
-            cpf: "333.333.333.33"
-        }
+    Rota para remove um cliente: DELETE - http://localhost:3333/account
 
 ---
 
-    route para consultar o balance do cliente: GET - http://localhost:3333/balance
-        deve passar o cpf pelo header
-        Ex.:
-        header
-        {
-            cpf: "333.333.333.33"
-        }
+    Rota para consultar o balance do cliente: GET - http://localhost:3333/balance
 
 ### Requisitos
 
