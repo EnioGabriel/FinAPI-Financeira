@@ -1,4 +1,8 @@
-## FinApi - Financeira
+## FinAPI - Financeira
+
+<p align="center"> 
+API financeira utilizando o padrão de arquitetura REST.
+</p>
 
 ---
 
@@ -29,7 +33,7 @@ $ cd FinAPI-Financeira
 
 ---
 
-## Instruções
+## Instruções:
 
     Requisições feitas via [insomnia](https://insomnia.rest/)
 
@@ -46,7 +50,7 @@ $ cd FinAPI-Financeira
 
 ---
 
-## Importante
+## Importante:
 
     A partir desse ponto, todas as rotas devem conter o middleware de CPF na requisição.
 
@@ -108,7 +112,7 @@ $ cd FinAPI-Financeira
 
     Rota para consultar o balance do cliente: GET - http://localhost:3333/balance
 
-### Requisitos
+### Requisitos:
 
 - [ ] Deve ser possivel criar uma conta
 - [ ] Deve ser possivel buscar o extrato bancário do cliente
