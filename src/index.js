@@ -40,14 +40,19 @@ app.post("/account", (req, resp) => {
 });
 
 // Listando extrato
-app.get("/statement/:cpf", (req, res) => {
-  // capturando CPF contido no param da request
-  const { cpf } = req.params;
+app.get("/statement", (req, res) => {
+  // capturando CPF contido no header da request
+  const { cpf } = req.headers;
 
   // Percorrendo Array de clientes e armazenando cada cliente em uma const
   const customer = customers.find((customer) => {
     return customer.cpf === Number(cpf);
   });
+
+  // Se o cliente nao for encontrado
+  if (!customer) {
+    return res.status(400).json({ error: "Cliente não encontrado" });
+  }
 
   // retornando cada cliente para o client
   return res.json(customer.statement);
