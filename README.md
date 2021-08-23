@@ -52,7 +52,7 @@ $ cd FinAPI-Financeira
 
 ## Importante:
 
-    A partir desse ponto, todas as rotas devem conter o middleware de CPF na requisição.
+    A partir desse ponto, todas as rotas devem conter o middleware de CPF na requisição via header.
 
     Ex.:
         header{
@@ -67,7 +67,7 @@ $ cd FinAPI-Financeira
 
     Rota para realizar um depósito na conta: POST - http://localhost:3333/deposit
 
-        Os dados devem ser passado via JSON no body.
+        Os dados devem ser passados via JSON no body.
         Ex.:
         body
         {
@@ -79,7 +79,7 @@ $ cd FinAPI-Financeira
 
     Rota para realizar um saque na conta: POST - http://localhost:3333/withdraw
 
-        Os dados devem ser passado via JSON no body.
+        Os dados devem ser passados via JSON no body.
         Ex.:
         body
         {
@@ -98,7 +98,7 @@ $ cd FinAPI-Financeira
 
     Rota para atualizar o nome do cliente: PUT - http://localhost:3333/account
 
-        Ex.: Os dados devem ser passado via JSON no body
+        Ex.: Os dados devem ser passados via JSON no body
         body
         {
             "name": "victor"
@@ -116,7 +116,7 @@ $ cd FinAPI-Financeira
 
 - [x] Deve ser possivel criar uma conta
 - [x] Deve ser possivel buscar o extrato bancário do cliente
-- [ ] Deve ser possivel realizar um depósito
+- [x] Deve ser possivel realizar um depósito
 - [ ] Deve ser possivel realizar um saque
 - [ ] Deve ser possivel busca o extrato bancário do cliente por data
 - [ ] Deve ser possivel atualizar dados da conta do cliente
@@ -128,8 +128,8 @@ $ cd FinAPI-Financeira
 
 - [x] Não deve ser possivel cadastrar uma conta com CPF já existente
 - [x] Não deve ser possivel fazer depósito em uma conta não existente
-- [ ] Não deve ser possivel buscar extrato em uma conta não existente
-- [ ] Não deve ser possivel fazer saque em ua conta não existente
+- [x] Não deve ser possivel buscar extrato em uma conta não existente
+- [ ] Não deve ser possivel fazer saque em uma conta não existente
 - [ ] Não deve ser possivel excluir uma conta não existente
 - [ ] Não deve ser possivel fazer saque quando o saldo for insuficiente
 - [ ] Não deve ser possivel buscar o balance em uma conta não existente
