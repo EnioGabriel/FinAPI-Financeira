@@ -11,6 +11,28 @@ app.use(express.json());
 // Array para armazenar dados do cliente
 const customers = [];
 
+// Middleware
+const verifyIfExistsAccountCPF = (req, res, next) => {
+  // capturando CPF contido no header da request
+  const { cpf } = req.headers;
+
+  // Percorrendo Array de clientes e armazenando cada cliente em uma const
+  const customer = customers.find((customer) => {
+    return customer.cpf === Number(cpf);
+  });
+
+  // Se o cliente nao for encontrado
+  if (!customer) {
+    return res.status(400).json({ error: "Cliente não encontrado" });
+  }
+
+  // Repassando um valor que pode ser usado em todas as rotas com o middleware
+  req.customer = customer;
+
+  // next => definindo que o middleware pressiga, pois nao tem nenhum erro
+  return next();
+};
+
 // Cadastro do cliente
 app.post("/account", (req, resp) => {
   // Desestruturando e pegando as info (JSON) do corpo da req
@@ -39,22 +61,15 @@ app.post("/account", (req, resp) => {
   return resp.status(201).send("Cadastro criado!");
 });
 
+// aplica middleware em todas as rotas abaixo de onde foi declarado
+// app.use(verifyIfExistsAccountCPF);
+
 // Listando extrato
-app.get("/statement", (req, res) => {
-  // capturando CPF contido no header da request
-  const { cpf } = req.headers;
+app.get("/statement", verifyIfExistsAccountCPF, (req, res) => {
+  // Capturando o costumer do middleware
+  const { customer } = req;
 
-  // Percorrendo Array de clientes e armazenando cada cliente em uma const
-  const customer = customers.find((customer) => {
-    return customer.cpf === Number(cpf);
-  });
-
-  // Se o cliente nao for encontrado
-  if (!customer) {
-    return res.status(400).json({ error: "Cliente não encontrado" });
-  }
-
-  // retornando cada cliente para o client
+  // retornando cada cliente
   return res.json(customer.statement);
 });
 
