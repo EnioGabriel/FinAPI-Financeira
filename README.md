@@ -40,7 +40,7 @@ $ cd FinAPI-Financeira
     URL para acessar as rotas: http://localhost:3333
 
     Rota para criar uma conta: POST - http://localhost:3333/account
-        Os dados devem ser passando via JSON no body.
+        Os dados devem ser passado via JSON no body.
         Ex.:
         body
         {
@@ -67,7 +67,7 @@ $ cd FinAPI-Financeira
 
     Rota para realizar um depósito na conta: POST - http://localhost:3333/deposit
 
-        Os dados devem ser passando via JSON no body.
+        Os dados devem ser passado via JSON no body.
         Ex.:
         body
         {
@@ -79,7 +79,7 @@ $ cd FinAPI-Financeira
 
     Rota para realizar um saque na conta: POST - http://localhost:3333/withdraw
 
-        Os dados devem ser passando via JSON no body.
+        Os dados devem ser passado via JSON no body.
         Ex.:
         body
         {
@@ -98,7 +98,7 @@ $ cd FinAPI-Financeira
 
     Rota para atualizar o nome do cliente: PUT - http://localhost:3333/account
 
-        Ex.: Os dados devem ser passando via JSON no body
+        Ex.: Os dados devem ser passado via JSON no body
         body
         {
             "name": "victor"
@@ -114,7 +114,7 @@ $ cd FinAPI-Financeira
 
 ### Requisitos:
 
-- [ ] Deve ser possivel criar uma conta
+- [x] Deve ser possivel criar uma conta
 - [ ] Deve ser possivel buscar o extrato bancário do cliente
 - [ ] Deve ser possivel realizar um depósito
 - [ ] Deve ser possivel realizar um saque
