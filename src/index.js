@@ -9,7 +9,7 @@ const app = express();
 app.use(express.json());
 
 // Array para armazenar dados do cliente
-const costumers = [];
+const customers = [];
 
 // Cadastro do cliente
 app.post("/account", (req, resp) => {
@@ -18,17 +18,17 @@ app.post("/account", (req, resp) => {
 
   // Varrendo array e verificando se contem cpf repetido
   // some => retorna verdadeiro ou falso dependendo da condiçao passada para ele
-  const costumerAlreadyExist = costumers.some((costumer) => {
+  const customerAlreadyExist = customers.some((costumer) => {
     return costumer.cpf === cpf;
   });
 
   // Retornando erro caso o CPF já esteja cadastrado
-  if (costumerAlreadyExist) {
+  if (customerAlreadyExist) {
     return resp.status(400).json({ error: "esse CPF já está em uso!" });
   }
 
   // Inserindo dados no array
-  costumers.push({
+  customers.push({
     id: uuidV4(),
     cpf,
     name,
@@ -37,6 +37,20 @@ app.post("/account", (req, resp) => {
 
   // Enviando a respoosta para o client-server
   return resp.status(201).send("Cadastro criado!");
+});
+
+// Listando extrato
+app.get("/statement/:cpf", (req, res) => {
+  // capturando CPF contido no param da request
+  const { cpf } = req.params;
+
+  // Percorrendo Array de clientes e armazenando cada cliente em uma const
+  const customer = customers.find((customer) => {
+    return customer.cpf === Number(cpf);
+  });
+
+  // retornando cada cliente para o client
+  return res.json(customer.statement);
 });
 
 // Atribuindo porta para conexao e escutando
