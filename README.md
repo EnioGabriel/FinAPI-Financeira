@@ -35,7 +35,7 @@ $ cd FinAPI-Financeira
 
 ## Instruções:
 
-    Requisições feitas via [insomnia](https://insomnia.rest/)
+    Requisições feitas via insomnia
 
     URL para acessar as rotas: http://localhost:3333
 
