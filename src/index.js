@@ -33,6 +33,20 @@ const verifyIfExistsAccountCPF = (req, res, next) => {
   return next();
 };
 
+// retorna o valor total disponivel na conta
+const getBalance = (statement) => {
+  return statement.reduce((acc, operation) => {
+    console.log(operation);
+    // Verifica se foi depósito e retorna o valor que tem na conta
+    if (operation.type === "credit") {
+      return acc + operation.amount;
+    }
+
+    // Caso contrário, foi feito um saque e o valor é retirado da conta
+    return acc - operation.amount;
+  }, 0); // Setando o acumulador como padra0 inicial de zero
+};
+
 // Cadastro do cliente
 app.post("/account", (req, resp) => {
   // Desestruturando e pegando as info (JSON) do corpo da req
@@ -80,11 +94,38 @@ app.post("/deposit", verifyIfExistsAccountCPF, (req, res) => {
   // Capturando cliente do middleware
   const { customer } = req;
 
+  // Criando objeto com os dados da operação de depósito
   const statementOperation = {
     description,
     amount,
     created_at: new Date(),
     type: "credit",
+  };
+
+  // Setando dados da operação no statement do cliente
+  customer.statement.push(statementOperation);
+
+  return res.status(201).send();
+});
+
+// Realizando saque
+app.get("/withdraw", verifyIfExistsAccountCPF, (req, res) => {
+  const { amount } = req.body;
+  // Pegando cliente de dentro do middleware
+  const { customer } = req;
+
+  // Pega o valor que vc possui disponivel na conta
+  const balance = getBalance(customer.statement);
+
+  // Rejeita caso o pedido de saque seja maior que o valor disponivel na conta
+  if (balance < amount) {
+    return res.status(400).json({ error: "Saldo insuficiente" });
+  }
+
+  const statementOperation = {
+    amount,
+    created_at: new Date(),
+    type: "debit",
   };
 
   customer.statement.push(statementOperation);
