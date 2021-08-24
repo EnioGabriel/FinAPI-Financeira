@@ -1,4 +1,5 @@
 // Importando libs
+const { response } = require("express");
 const express = require("express");
 const { v4: uuidV4 } = require("uuid");
 
@@ -162,6 +163,13 @@ app.put("/account", verifyIfExistsAccountCPF, (req, res) => {
   customer.name = name;
 
   return res.status(201).send();
+});
+
+// Lista dados do cliente
+app.get("/account", verifyIfExistsAccountCPF, (req, res) => {
+  const { customer } = req;
+
+  return res.json(customer);
 });
 
 // Atribuindo porta para conexao e escutando
