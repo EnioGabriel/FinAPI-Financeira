@@ -154,6 +154,16 @@ app.get("/statement/date", verifyIfExistsAccountCPF, (req, res) => {
   return res.json(statement);
 });
 
+// Atualiza dados do cliente
+app.put("/account", verifyIfExistsAccountCPF, (req, res) => {
+  const { name } = req.body;
+  const { customer } = req;
+
+  customer.name = name;
+
+  return res.status(201).send();
+});
+
 // Atribuindo porta para conexao e escutando
 app.listen(3333, () => {
   console.log("🚀️ Server started");
