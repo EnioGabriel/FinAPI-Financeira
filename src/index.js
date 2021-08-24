@@ -36,7 +36,6 @@ const verifyIfExistsAccountCPF = (req, res, next) => {
 // retorna o valor total disponivel na conta
 const getBalance = (statement) => {
   return statement.reduce((acc, operation) => {
-    console.log(operation);
     // Verifica se foi depósito e retorna o valor que tem na conta
     if (operation.type === "credit") {
       return acc + operation.amount;
@@ -109,7 +108,7 @@ app.post("/deposit", verifyIfExistsAccountCPF, (req, res) => {
 });
 
 // Realizando saque
-app.get("/withdraw", verifyIfExistsAccountCPF, (req, res) => {
+app.post("/withdraw", verifyIfExistsAccountCPF, (req, res) => {
   const { amount } = req.body;
   // Pegando cliente de dentro do middleware
   const { customer } = req;
@@ -131,6 +130,28 @@ app.get("/withdraw", verifyIfExistsAccountCPF, (req, res) => {
   customer.statement.push(statementOperation);
 
   return res.status(201).send();
+});
+
+// Lista extrato por data
+app.get("/statement/date", verifyIfExistsAccountCPF, (req, res) => {
+  // Capturando o costumer do middleware
+  const { customer } = req;
+
+  // Capturando a data passada no query params
+  const { date } = req.query;
+
+  // Zerando o horário da operação para facilitar a comparação
+  const dateFormat = new Date(date + " 00:00");
+
+  // Comparando as datas
+  const statement = customer.statement.filter((statement) => {
+    return (
+      statement.created_at.toDateString() ===
+      new Date(dateFormat).toDateString()
+    );
+  });
+
+  return res.json(statement);
 });
 
 // Atribuindo porta para conexao e escutando
