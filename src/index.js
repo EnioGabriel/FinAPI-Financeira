@@ -184,3 +184,11 @@ app.delete("/account", verifyIfExistsAccountCPF, (req, res) => {
 app.listen(3333, () => {
   console.log("🚀️ Server started");
 });
+
+// Listar balanço da conta
+app.get("/balance", verifyIfExistsAccountCPF, (req, res) => {
+  const { customer } = req;
+
+  // retornando o balance
+  return res.status(200).json(getBalance(customer.statement));
+});
