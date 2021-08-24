@@ -172,6 +172,14 @@ app.get("/account", verifyIfExistsAccountCPF, (req, res) => {
   return res.json(customer);
 });
 
+app.delete("/account", verifyIfExistsAccountCPF, (req, res) => {
+  const { customer } = req;
+
+  // removendo o cliente com splice
+  customers.splice(customer, 1);
+  return res.status(200).json(customers);
+});
+
 // Atribuindo porta para conexao e escutando
 app.listen(3333, () => {
   console.log("🚀️ Server started");
